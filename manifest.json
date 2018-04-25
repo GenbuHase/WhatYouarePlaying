@@ -20,5 +20,10 @@
 			"matches": [ "https://www.youtube.com/*", "http://www.nicovideo.jp/*", "https://twitcasting.tv/*" ],
 			"js": [ "app.js" ]
 		}
-	]
+	],
+
+	"browser_action": {
+		"default_title": "What You're Playing",
+		"default_popup": "view/index.html"
+	}
 }
