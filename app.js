@@ -41,13 +41,42 @@ class DOM {
 	}
 }
 
-const INSTANCE = "Your instance";
-const TOKEN = "Your token";
+const toot = function (instance = "", token = "", privacy = "unlisted") {
+	DOM.xhr({
+		type: "POST",
+		url: `${instance}/api/v1/statuses`,
+		doesSync: true,
+		
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${token}`
+		},
+		
+		data: JSON.stringify({
+			status: [
+				"#WhatYouarePlaying",
+				"Now playing🎶",
+				"",
+				`【${currentTitle}】`,
+				currentUrl
+			].join("\n"),
+			
+			visibility: privacy
+		})
+	});
+};
+
+
+
 const URLS = [
 	new RegExp("https://www\.youtube\.com/watch\\?v=.+"),
 	new RegExp("http://www\.nicovideo\.jp/watch/.+"),
 	new RegExp("https://twitcasting\.tv/[a-zA-Z0-9_\\-:]+$")
 ];
+
+let currentInstance = "",
+	currentToken = "",
+	currentPrivacy = "";
 
 let currentUrl = "",
 	currentTitle = "";
@@ -63,31 +92,24 @@ setInterval(() => {
 				let titleObserver = setInterval(() => {
 					if (currentTitle != document.title || titleObserverCount > 50) {
 						currentTitle = document.title;
-						
-						DOM.xhr({
-							type: "POST",
-							url: `${INSTANCE}/api/v1/statuses`,
-							doesSync: true,
-							
-							headers: {
-								"Content-Type": "application/json",
-								"Authorization": `Bearer ${TOKEN}`
-							},
-							
-							data: JSON.stringify({
-								status: [
-									"#WhatYouarePlaying",
-									"Now playing🎶",
-									"",
-									`【${currentTitle}】`,
-									currentUrl
-								].join("\n"),
-								
-								visibility: "unlisted"
-							})
-						});
-						
-						clearInterval(titleObserver);
+
+						try {
+							chrome.storage.local.get(["instance", "token", "privacy"], items => {
+								if (!items.instance) throw new TypeError("A config, 'instance' is invalid.");
+								if (!items.token) throw new TypeError("A config, 'token' is invalid.");
+								if (!items.privacy) throw new TypeError("A config, 'privacy' is invalid.");
+
+								currentInstance = items.instance;
+								currentToken = items.token;
+								currentPrivacy = items.privacy;
+
+								toot(items.instance, items.token, items.privacy);
+
+								clearInterval(titleObserver);
+							});
+						} catch (error) {
+							toot(currentInstance, currentToken, currentPrivacy);
+						}
 					}
 					
 					titleObserverCount++;
@@ -96,3 +118,9 @@ setInterval(() => {
 		});
 	}
 }, 200);
+
+chrome.storage.local.get(["instance", "token", "privacy"], item => {
+	item.instance = item.instance || "";
+	item.token = item.token || "";
+	item.privacy = item.privacy || "unlisted";
+});

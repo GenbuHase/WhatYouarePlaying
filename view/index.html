@@ -1,0 +1,60 @@
+<!DocType HTML>
+
+<HTML>
+	<Head>
+		<Meta Charset = "UTF-8" />
+		<Title>せってーがめん！！ | What You're Playing</Title>
+
+		<Script Src = "lib/materialize.js"></Script>
+		<Link Rel = "StyleSheet" Href = "lib/materialize.css" />
+		<Link Rel = "StyleSheet" Href = "lib/Material Icons/material-icons.css" />
+
+		<Script Src = "main.js" Defer></Script>
+		<Link Rel = "StyleSheet" Href = "main.css" />
+	</Head>
+
+	<Body>
+		<Header Class = "navbar-fixed">
+			<Nav>
+				<Div Class = "nav-wrapper">
+					<Span Class = "brand-logo center">What You're Playing</Span>
+				</Div>
+			</Nav>
+		</Header>
+
+		<Main>
+			<Div Class = "input-field">
+				<Input ID = "instance" Type = "Text"/>
+				<Label For = "instance">インスタンスドメイン(ex: https://itabashi.0j0.jp)</Label>
+			</Div>
+
+			<Div Class = "input-field">
+				<Input ID = "token" Type = "Text"/>
+				<Label For = "token">あなたのトークン(書き込み属性必須)</Label>
+			</Div>
+
+			<Div Class = "input-field">
+				<Select ID = "privacy">
+					<Option Name = "privacy.public" Value = "public">公開</Option>
+					<Option Name = "privacy.unlisted" Value = "unlisted">未収載</Option>
+					<Option Name = "privacy.private" Value = "private">非公開</Option>
+					<Option Name = "privacy.limited" Value = "limited">限定公開(※一部のインスタンスのみ)</Option>
+				</Select>
+
+				<Label>公開範囲</Label>
+			</Div>
+
+			<Div>
+				<Button ID = "btns_save" Class = "btn waves-effect waves-light">
+					<I Class = "material-icons left">save</I>
+					設定を保存
+				</Button>
+
+				<Button ID = "btns_close" Class = "btn red waves-effect waves-light">
+					<I Class = "material-icons left">close</I>
+					設定画面を閉じる
+				</Button>
+			</Div>
+		</Main>
+	</Body>
+</HTML>

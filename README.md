@@ -1,4 +1,7 @@
 # What You're Playing(Google Chrome Extension)
+An extension of Google Chrome for Mastodon that toots what you're listening to
+
+![Logo](/icon48.png)
 
 ## Overview | 概要
 This extension toots what you're listening to now!
@@ -10,8 +13,9 @@ This is a list of features.
 * Deliver information of channels on TwitCasting(ツイキャス)
 
 ## How to Use | どうするのー？
-Please put your information into `INSTANCE` and `TOKEN` in `main.js`.
-We recommend to generate new app for this extension.
+Please edit configurate from option page.<Br />
+We recommend to generate new app for this extension to provide a token.
+![Option Page](image/001.png)
 
 ## Others | その他
 These codes are based on an application, which was only for me, so it might not work well.
