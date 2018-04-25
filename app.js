@@ -41,6 +41,31 @@ class DOM {
 	}
 }
 
+const toot = function (instance = "", token = "", privacy = "unlisted") {
+	DOM.xhr({
+		type: "POST",
+		url: `${instance}/api/v1/statuses`,
+		doesSync: true,
+		
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${token}`
+		},
+		
+		data: JSON.stringify({
+			status: [
+				"#WhatYouarePlaying",
+				"Now playing🎶",
+				"",
+				`【${currentTitle}】`,
+				currentUrl
+			].join("\n"),
+			
+			visibility: privacy
+		})
+	});
+};
+
 
 
 const URLS = [
@@ -48,6 +73,10 @@ const URLS = [
 	new RegExp("http://www\.nicovideo\.jp/watch/.+"),
 	new RegExp("https://twitcasting\.tv/[a-zA-Z0-9_\\-:]+$")
 ];
+
+let currentInstance = "",
+	currentToken = "",
+	currentPrivacy = "";
 
 let currentUrl = "",
 	currentTitle = "";
@@ -64,36 +93,23 @@ setInterval(() => {
 					if (currentTitle != document.title || titleObserverCount > 50) {
 						currentTitle = document.title;
 
-						chrome.storage.local.get(["instance", "token", "privacy"], item => {
-							if (!item.instance) throw new TypeError("A config, 'instance' is invalid.");
-							if (!item.token) throw new TypeError("A config, 'token' is invalid.");
-							if (!item.privacy) throw new TypeError("A config, 'privacy' is invalid.");
+						try {
+							chrome.storage.local.get(["instance", "token", "privacy"], items => {
+								if (!items.instance) throw new TypeError("A config, 'instance' is invalid.");
+								if (!items.token) throw new TypeError("A config, 'token' is invalid.");
+								if (!items.privacy) throw new TypeError("A config, 'privacy' is invalid.");
 
-							DOM.xhr({
-								type: "POST",
-								url: `${item.instance}/api/v1/statuses`,
-								doesSync: true,
-								
-								headers: {
-									"Content-Type": "application/json",
-									"Authorization": `Bearer ${item.token}`
-								},
-								
-								data: JSON.stringify({
-									status: [
-										"#WhatYouarePlaying",
-										"Now playing🎶",
-										"",
-										`【${currentTitle}】`,
-										currentUrl
-									].join("\n"),
-									
-									visibility: item.privacy
-								})
+								currentInstance = items.instance;
+								currentToken = items.token;
+								currentPrivacy = items.privacy;
+
+								toot(items.instance, items.token, items.privacy);
+
+								clearInterval(titleObserver);
 							});
-
-							clearInterval(titleObserver);
-						});
+						} catch (error) {
+							toot(currentInstance, currentToken, currentPrivacy);
+						}
 					}
 					
 					titleObserverCount++;
