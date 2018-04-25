@@ -13,7 +13,7 @@ This is a list of features.
 * Deliver information of channels on TwitCasting(ツイキャス)
 
 ## How to Use | どうするのー？
-Please edit configurate from option page.
+Please edit configurate from option page.<Br />
 We recommend to generate new app for this extension to provide a token.
 ![Option Page](image/001.png)
 
