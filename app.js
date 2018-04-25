@@ -109,6 +109,7 @@ setInterval(() => {
 							});
 						} catch (error) {
 							toot(currentInstance, currentToken, currentPrivacy);
+							clearInterval(titleObserver);
 						}
 					}
 					
