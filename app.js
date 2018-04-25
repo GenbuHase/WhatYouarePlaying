@@ -41,8 +41,8 @@ class DOM {
 	}
 }
 
-const INSTANCE = "Your instance";
-const TOKEN = "Your token";
+
+
 const URLS = [
 	new RegExp("https://www\.youtube\.com/watch\\?v=.+"),
 	new RegExp("http://www\.nicovideo\.jp/watch/.+"),
@@ -63,31 +63,37 @@ setInterval(() => {
 				let titleObserver = setInterval(() => {
 					if (currentTitle != document.title || titleObserverCount > 50) {
 						currentTitle = document.title;
-						
-						DOM.xhr({
-							type: "POST",
-							url: `${INSTANCE}/api/v1/statuses`,
-							doesSync: true,
-							
-							headers: {
-								"Content-Type": "application/json",
-								"Authorization": `Bearer ${TOKEN}`
-							},
-							
-							data: JSON.stringify({
-								status: [
-									"#WhatYouarePlaying",
-									"Now playing🎶",
-									"",
-									`【${currentTitle}】`,
-									currentUrl
-								].join("\n"),
+
+						chrome.storage.local.get(["instance", "token", "privacy"], item => {
+							if (!item.instance) throw new TypeError("A config, 'instance' is invalid.");
+							if (!item.token) throw new TypeError("A config, 'token' is invalid.");
+							if (!item.privacy) throw new TypeError("A config, 'privacy' is invalid.");
+
+							DOM.xhr({
+								type: "POST",
+								url: `${item.instance}/api/v1/statuses`,
+								doesSync: true,
 								
-								visibility: "unlisted"
-							})
+								headers: {
+									"Content-Type": "application/json",
+									"Authorization": `Bearer ${item.token}`
+								},
+								
+								data: JSON.stringify({
+									status: [
+										"#WhatYouarePlaying",
+										"Now playing🎶",
+										"",
+										`【${currentTitle}】`,
+										currentUrl
+									].join("\n"),
+									
+									visibility: item.privacy
+								})
+							});
+
+							clearInterval(titleObserver);
 						});
-						
-						clearInterval(titleObserver);
 					}
 					
 					titleObserverCount++;
@@ -96,3 +102,9 @@ setInterval(() => {
 		});
 	}
 }, 200);
+
+chrome.storage.local.get(["instance", "token", "privacy"], item => {
+	item.instance = item.instance || "";
+	item.token = item.token || "";
+	item.privacy = item.privacy || "unlisted";
+});

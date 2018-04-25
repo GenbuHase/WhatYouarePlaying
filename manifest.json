@@ -12,7 +12,8 @@
 	},
 	
 	"permissions": [
-		"tabs"
+		"tabs",
+		"storage"
 	],
 	
 	"content_scripts": [
@@ -25,5 +26,7 @@
 	"browser_action": {
 		"default_title": "What You're Playing",
 		"default_popup": "view/index.html"
-	}
+	},
+
+	"options_page": "view/index.html"
 }
