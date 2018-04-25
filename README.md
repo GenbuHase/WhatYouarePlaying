@@ -1,4 +1,7 @@
 # What You're Playing(Google Chrome Extension)
+An extension of Google Chrome for Mastodon that toots what you're listening to
+
+![Logo](/icon48.png)
 
 ## Overview | 概要
 This extension toots what you're listening to now!
