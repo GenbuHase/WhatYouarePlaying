@@ -1,6 +1,7 @@
 const instanceInputter = document.getElementById("instance");
 const tokenInputter = document.getElementById("token");
 const pricacySelector = document.getElementById("privacy");
+const enabledSwitch = document.getElementById("enabled");
 const saveBtn = document.getElementById("btns_save");
 const closeBtn = document.getElementById("btns_close");
 
@@ -9,13 +10,20 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-	chrome.storage.local.get(["instance", "token", "privacy"], item => {
-		if (item.instance) instanceInputter.value = item.instance;
-		if (item.token) tokenInputter.value = item.token;
-		if (item.privacy) pricacySelector.namedItem(`privacy.${item.privacy}`).selected = true;
-
+	chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
+		if (items.enabled) enabledSwitch.checked = items.enabled;
+		if (items.instance) instanceInputter.value = items.instance;
+		if (items.token) tokenInputter.value = items.token;
+		if (items.privacy) pricacySelector.namedItem(`privacy.${items.privacy}`).selected = true;
+		
 		M.updateTextFields();
 		M.FormSelect.init(pricacySelector);
+	});
+
+	enabledSwitch.addEventListener("change", event => {
+		chrome.storage.local.set({
+			enabled: event.target.checked
+		});
 	});
 
 	saveBtn.addEventListener("click", () => {
