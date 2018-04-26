@@ -74,10 +74,11 @@ const URLS = [
 	new RegExp("https://twitcasting\.tv/[a-zA-Z0-9_\\-:]+$")
 ];
 
-let currentInstance = "",
+let currentEnabled = false,
+	currentInstance = "",
 	currentToken = "",
 	currentPrivacy = "";
-
+	
 let currentUrl = "",
 	currentTitle = "";
 	
@@ -94,20 +95,28 @@ setInterval(() => {
 						currentTitle = document.title;
 
 						try {
-							chrome.storage.local.get(["instance", "token", "privacy"], items => {
+							chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
+								if (!items.enabled) {
+									currentEnabled = items.enabled;
+									
+									clearInterval(titleObserver);
+									return;
+								}
+								
 								if (!items.instance) throw new TypeError("A config, 'instance' is invalid.");
 								if (!items.token) throw new TypeError("A config, 'token' is invalid.");
 								if (!items.privacy) throw new TypeError("A config, 'privacy' is invalid.");
-
+								
 								currentInstance = items.instance;
 								currentToken = items.token;
 								currentPrivacy = items.privacy;
 
-								toot(items.instance, items.token, items.privacy);
-
+								toot(currentInstance, currentToken, currentPrivacy);
 								clearInterval(titleObserver);
 							});
 						} catch (error) {
+							if (!currentEnabled) return;
+							
 							toot(currentInstance, currentToken, currentPrivacy);
 							clearInterval(titleObserver);
 						}
@@ -120,8 +129,9 @@ setInterval(() => {
 	}
 }, 200);
 
-chrome.storage.local.get(["instance", "token", "privacy"], item => {
-	item.instance = item.instance || "";
-	item.token = item.token || "";
-	item.privacy = item.privacy || "unlisted";
+chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
+	items.enabled = items.enabled == undefined ? false : items.enabled;
+	items.instance = items.instance || "";
+	items.token = items.token || "";
+	items.privacy = items.privacy || "unlisted";
 });
