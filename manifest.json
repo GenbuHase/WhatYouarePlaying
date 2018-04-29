@@ -3,8 +3,8 @@
 	
 	"name": "What You're Playing",
 	"description": "再生中の曲とかトゥートするやつ",
-	"version": "3.1",
-	"version_name": "v3.1",
+	"version": "3.2",
+	"version_name": "v3.2",
 	"homepage_url": "https://genbuhase.github.io/",
 	
 	"icons": {
@@ -24,7 +24,7 @@
 	],
 
 	"browser_action": {
-		"default_title": "What You're Playing",
+		"default_title": "Setting | What You're Playing",
 		"default_popup": "view/index.html"
 	},
 
