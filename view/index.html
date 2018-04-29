@@ -3,12 +3,13 @@
 <HTML>
 	<Head>
 		<Meta Charset = "UTF-8" />
-		<Title>せってーがめん！！ | What You're Playing</Title>
+		<Title>Setting | What You're Playing</Title>
 
 		<Script Src = "lib/materialize.js"></Script>
 		<Link Rel = "StyleSheet" Href = "lib/materialize.css" />
 		<Link Rel = "StyleSheet" Href = "lib/Material Icons/material-icons.css" />
 
+		<Script Src = "locale.js"></Script>
 		<Script Src = "main.js" Defer></Script>
 		<Link Rel = "StyleSheet" Href = "main.css" />
 	</Head>
@@ -34,34 +35,37 @@
 		<Main>
 			<Div Class = "input-field">
 				<Input ID = "instance" Type = "Text"/>
-				<Label For = "instance">インスタンスドメイン(ex: https://itabashi.0j0.jp)</Label>
+				<Label For = "instance">
+					<Locale Message = "setting_instance">Your instance</Locale>
+					(ex: <A Href = "https://itabashi.0j0.jp" Target = "_blank">https://itabashi.0j0.jp</A>)
+				</Label>
 			</Div>
 
 			<Div Class = "input-field">
 				<Input ID = "token" Type = "Text"/>
-				<Label For = "token">あなたのトークン(書き込み属性必須)</Label>
+				<Label For = "token" Locale-Message = "setting_token">Your token(Required permission to write)</Label>
 			</Div>
 
 			<Div Class = "input-field">
 				<Select ID = "privacy">
-					<Option Name = "privacy.public" Value = "public">公開</Option>
-					<Option Name = "privacy.unlisted" Value = "unlisted">未収載</Option>
-					<Option Name = "privacy.private" Value = "private">非公開</Option>
-					<Option Name = "privacy.limited" Value = "limited">限定公開(※一部のインスタンスのみ)</Option>
+					<Option Name = "privacy.public" Value = "public" Locale-Message = "setting_privacy_public">Public</Option>
+					<Option Name = "privacy.unlisted" Value = "unlisted" Locale-Message = "setting_privacy_unlisted">Unlisted</Option>
+					<Option Name = "privacy.private" Value = "private" Locale-Message = "setting_privacy_private">Private</Option>
+					<Option Name = "privacy.limited" Value = "limited" Locale-Message = "setting_privacy_limited">LimitedLimited(Only for implemented instances)</Option>
 				</Select>
 
-				<Label>公開範囲</Label>
+				<Label Locale-Message = "setting_privacy">Privacy</Label>
 			</Div>
 
 			<Div>
 				<Button ID = "btns_save" Class = "btn waves-effect waves-light">
 					<I Class = "material-icons left">save</I>
-					設定を保存
+					<Locale Message = "setting_save">Save the changes</Locale>
 				</Button>
 
 				<Button ID = "btns_close" Class = "btn red waves-effect waves-light">
 					<I Class = "material-icons left">close</I>
-					設定画面を閉じる
+					<Locale Message = "setting_close">Discard this change and close</Locale>
 				</Button>
 			</Div>
 		</Main>

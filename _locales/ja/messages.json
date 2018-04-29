@@ -1,9 +1,14 @@
 {
-	"app_description": {
-		"message": "Mastodonに再生中の曲情報を共有するやつ"
-	},
+	"app_description": { "message": "Mastodonに再生中の曲をトゥートします。" },
+	"app_setting": { "message": "設定" },
 
-	"app_setting": {
-		"message": "設定"
-	}
+	"setting_instance": { "message": "所属インスタンス" },
+	"setting_token": { "message": "トークン(書き込み権限必須)" },
+	"setting_privacy": { "message": "公開範囲" },
+	"setting_privacy_public": { "message": "公開" },
+	"setting_privacy_unlisted": { "message": "未収載" },
+	"setting_privacy_private": { "message": "非公開" },
+	"setting_privacy_limited": { "message": "限定公開(※一部のインスタンスのみ)" },
+	"setting_save": { "message": "変更を保存" },
+	"setting_close": { "message": "変更を破棄して閉じる" }
 }
