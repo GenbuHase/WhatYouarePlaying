@@ -14,11 +14,11 @@ This is a list of features.
 
 ## How to Use | どうするのー？
 Please edit configurate from option page.<Br />
-We recommend to generate new app for this extension to provide a token.
+We recommend to generate new app to get a token, or get one from developer-tool.
 ![Option Page](image/001.png)
 
 ## Others | その他
-These codes are based on an application, which was only for me, so it might not work well.
+There might be any bugs, so feel free to report :)
 
 ## Author | つくったひとー！！
 * [@ProgrammerGenboo](https://itabashi.0j0.jp/@ProgrammerGenboo)
