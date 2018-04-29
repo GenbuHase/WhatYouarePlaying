@@ -1,0 +1,14 @@
+{
+	"app_description": { "message": "An extension for Mastodon that toots what you're listening to" },
+	"app_setting": { "message": "Setting" },
+
+	"setting_instance": { "message": "Your instance" },
+	"setting_token": { "message": "Your token(Required permission to write)" },
+	"setting_privacy": { "message": "Privacy" },
+	"setting_privacy_public": { "message": "Public" },
+	"setting_privacy_unlisted": { "message": "Unlisted" },
+	"setting_privacy_private": { "message": "Private" },
+	"setting_privacy_limited": { "message": "Limited(Only for implemented instances)" },
+	"setting_save": { "message": "Save the changes" },
+	"setting_close": { "message": "Discard this change and close" }
+}

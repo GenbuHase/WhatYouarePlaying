@@ -2,10 +2,11 @@
 	"manifest_version": 2,
 	
 	"name": "What You're Playing",
-	"description": "再生中の曲とかトゥートするやつ",
-	"version": "3.1",
-	"version_name": "v3.1",
+	"description": "__MSG_app_description__",
+	"version": "3.2",
+	"version_name": "v3.2",
 	"homepage_url": "https://genbuhase.github.io/",
+	"default_locale": "en",
 	
 	"icons": {
 		"48": "icon48.png"
@@ -24,7 +25,7 @@
 	],
 
 	"browser_action": {
-		"default_title": "What You're Playing",
+		"default_title": "__MSG_app_setting__ | What You're Playing",
 		"default_popup": "view/index.html"
 	},
 
