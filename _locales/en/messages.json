@@ -1,0 +1,9 @@
+{
+	"app_description": {
+		"message": "An extension for Mastodon that toots what you're listening to"
+	},
+
+	"app_setting": {
+		"message": "Setting"
+	}
+}

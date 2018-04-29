@@ -1,0 +1,9 @@
+{
+	"app_description": {
+		"message": "Mastodonに再生中の曲情報を共有するやつ"
+	},
+
+	"app_setting": {
+		"message": "設定"
+	}
+}
