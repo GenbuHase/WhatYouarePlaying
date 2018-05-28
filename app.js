@@ -53,7 +53,7 @@ const notifyListeningInfo = (icon) => {
 const URLS = [
 	{
 		name: "YouTube",
-		icon: "https://www.youtube.com/favicon.ico",
+		icon: "https://s.ytimg.com/yts/img/favicon_48-vflVjB_Qk.png",
 		expression: new RegExp("https://www\.youtube\.com/watch\\?v=.+")
 	},
 
@@ -65,7 +65,7 @@ const URLS = [
 
 	{
 		name: "TwitCasting",
-		icon: "https://twitcasting.tv/favicon.ico",
+		icon: document.querySelector('#submenu-header > Img.usericon').src,
 		expression: new RegExp("https://twitcasting\.tv/[a-zA-Z0-9_\\-:]+/?$")
 	}
 ];
