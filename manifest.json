@@ -3,9 +3,9 @@
 	
 	"name": "What You're Playing",
 	"description": "__MSG_app_description__",
-	"version": "3.2",
-	"version_name": "v3.2",
-	"homepage_url": "https://genbuhase.github.io/",
+	"version": "3.3",
+	"version_name": "v3.3",
+	"homepage_url": "https://github.com/GenbuHase/WhatYouarePlaying",
 	"default_locale": "en",
 	
 	"icons": {
