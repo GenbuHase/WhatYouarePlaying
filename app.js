@@ -65,7 +65,7 @@ const URLS = [
 
 	{
 		name: "TwitCasting",
-		icon: document.querySelector('#submenu-header > Img.usericon').src,
+		icon: document.querySelector('#submenu-header > Img.usericon') && document.querySelector('#submenu-header > Img.usericon').src,
 		expression: new RegExp("https://twitcasting\.tv/[a-zA-Z0-9_\\-:]+/?$")
 	}
 ];
