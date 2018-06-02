@@ -21,26 +21,32 @@ const URLMatchers = {
  * @param {Number} tabId
  */
 const notifyListeningInfo = (tabId) => {
-	(function looper (tabId) {
-		chrome.tabs.get(tabId, tabInfo => {
-			const { status, title, url } = tabInfo;
+	chrome.storage.local.get(["enabled"], items => {
+		const { enabled } = items;
 
-			if (status === "loading") {
-				setTimeout(looper(tabId), 200);
-				return;
-			}
+		if (enabled) {
+			(function looper (tabId) {
+				chrome.tabs.get(tabId, tabInfo => {
+					const { status, title, url } = tabInfo;
 
-			chrome.notifications.create(null, {
-				type: chrome.notifications.TemplateType.BASIC,
+					if (status === "loading") {
+						setTimeout(looper(tabId), 200);
+						return;
+					}
 
-				title,
-				message: url,
-				iconUrl: "icons/icon48.png"
-			});
+					chrome.notifications.create(null, {
+						type: chrome.notifications.TemplateType.BASIC,
 
-			tootListeningInfo(title, url);
-		});
-	})(tabId);
+						title,
+						message: url,
+						iconUrl: "icons/icon48.png"
+					});
+
+					tootListeningInfo(title, url);
+				});
+			})(tabId);
+		}
+	});
 };
 
 /**
