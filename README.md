@@ -1,28 +1,38 @@
-# What You're Playing(Google Chrome Extension)
+# <Img Alt="" Src="/icons/icon128.png" Height="48" Align="Center"/> What You're Playing(Google Chrome Extension)
+
 An extension of Google Chrome for Mastodon that toots what you're listening to
 
-![Logo](/icon48.png)
 
-## Overview | 概要
-This extension toots what you're listening to now!
 
-## Features | 特徴
-This is a list of features.
+## Languages
+* [Japanese | 日本語](/README[Japanese].md)
+
+
+## Overview
+This extension toots what you're listening to right now!
+
+
+## Features
 * Deliver information of videos on YouTube
-* Deliver information of videos on Niconico(ニコニコ動画)
-* Deliver information of channels on TwitCasting(ツイキャス)
+* Deliver information of videos on Niconico(Nicovideo)
+* Deliver information of channels on TwitCasting
 
-## How to Use | どうするのー？
+
+## How to Use
 Please edit configurate from option page.<Br />
 We recommend to generate new app to get a token, or get one from developer-tool.
-![Option Page](image/001.png)
+![Option Page](images/001.png)
 
-## Others | その他
-There might be any bugs, so feel free to report :)
 
-## Author | つくったひとー！！
-* [@ProgrammerGenboo](https://itabashi.0j0.jp/@ProgrammerGenboo)
-* [@ProgrammerGenboo](https://knzk.me/@ProgrammerGenboo)
+## Others
+There might be any bugs, so feel free to report :D<Br />
+I'll fix them as soon as possible!
 
-## LICENSE | ライセンス
+
+## Author
+* [ProgrammerGenboo(itabashi.0j0.jp)](https://itabashi.0j0.jp/@ProgrammerGenboo)
+* [ProgrammerGenboo(knzk.me)](https://knzk.me/@ProgrammerGenboo)
+
+
+## LICENSE
 [MIT LICENSE](/LICENSE)
