@@ -21,6 +21,7 @@ This extension toots what you're listening to right now!
 ## How to Use
 Please edit configurate from option page.<Br />
 We recommend to generate new app to get a token, or get one from developer-tool.
+
 ![Option Page](images/001.png)
 
 

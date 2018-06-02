@@ -21,6 +21,7 @@ What You're Playingは、Mastodonに現在再生中の動画情報を投稿し�
 ## 使用方法 | How to Use
 最初に、設定画面からトークンの設定を行ってください。<Br />
 トークンはWhat You're Playing用に新しくアプリを生成するか、もしくはデベロッパーツールからの取得を推奨しています。
+
 ![設定画面](images/001.png)
 
 
