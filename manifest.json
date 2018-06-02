@@ -3,31 +3,48 @@
 	
 	"name": "What You're Playing",
 	"description": "__MSG_app_description__",
-	"version": "3.4",
-	"version_name": "v3.4",
-	"homepage_url": "https://github.com/GenbuHase/WhatYouarePlaying",
+	"version": "4.0",
+	"version_name": "v4.0",
 	"default_locale": "en",
-	
+
 	"icons": {
-		"48": "icon48.png"
+		"16": "icons/icon16.png",
+		"48": "icons/icon48.png",
+		"128": "icons/icon128.png"
 	},
 	
 	"permissions": [
 		"tabs",
-		"storage"
-	],
-	
-	"content_scripts": [
-		{
-			"matches": [ "https://www.youtube.com/*", "http://www.nicovideo.jp/*", "https://twitcasting.tv/*" ],
-			"js": [ "app.js" ]
-		}
+		"notifications",
+		"storage",
+		"webNavigation",
+
+		"https://*.youtube.com/watch?*",
+		"http://*.nicovideo.jp/watch/*",
+		"https://twitcasting.tv/*"
 	],
 
-	"browser_action": {
-		"default_title": "__MSG_app_setting__ | What You're Playing",
-		"default_popup": "view/index.html"
+	"background": {
+		"scripts": ["background.js"],
+		"persistent": false
 	},
 
-	"options_page": "view/index.html"
+	"browser_action": {
+		"default_icon": {
+			"16": "icons/icon16.png",
+			"48": "icons/icon48.png",
+			"128": "icons/icon128.png"
+		},
+
+		"default_title": "Settings | What You're Playing",
+		"default_popup": "views/settings/index.html"
+	},
+
+	"options_ui": {
+		"page": "views/settings/index.html",
+		"open_in_tab": false
+	},
+
+	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"homepage_url": "https://github.com/GenbuHase/WhatYouarePlaying"
 }

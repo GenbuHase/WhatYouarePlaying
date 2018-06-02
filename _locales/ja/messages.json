@@ -1,5 +1,5 @@
 {
-	"app_description": { "message": "Mastodonに再生中の曲をトゥートします。" },
+	"app_description": { "message": "Mastodonに再生中の曲情報をトゥートします。" },
 	"app_setting": { "message": "設定" },
 
 	"setting_instance": { "message": "所属インスタンス" },
