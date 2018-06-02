@@ -47,36 +47,38 @@ const notifyListeningInfo = (tabId) => {
  * @param {String} title
  * @param {String} url
  * 
- * @returns {Promise}
+ * @returns {Promise | void}
  */
 const tootListeningInfo = (title, url) => {
 	chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
-		const { instance, token, privacy } = items;
+		const { enabled, instance, token, privacy } = items;
 		
 		if (!instance) throw new TypeError("A config, 'instance' is invalid.");
 		if (!token) throw new TypeError("A config, 'token' is invalid.");
 		if (!privacy) throw new TypeError("A config, 'privacy' is invalid.");
 
-		return fetch(`${instance}/api/v1/statuses`, {
-			method: "POST",
-	
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${token}`
-			},
-	
-			body: JSON.stringify({
-				status: [
-					"#WhatYouarePlaying",
-					"Now playing🎶",
-					"",
-					`【${title}】`,
-					url
-				].join("\n"),
-				
-				visibility: privacy
-			})
-		});
+		if (enabled) {
+			return fetch(`${instance}/api/v1/statuses`, {
+				method: "POST",
+		
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${token}`
+				},
+		
+				body: JSON.stringify({
+					status: [
+						"#WhatYouarePlaying",
+						"Now playing🎶",
+						"",
+						`【${title}】`,
+						url
+					].join("\n"),
+					
+					visibility: privacy
+				})
+			});
+		}
 	});
 };
 
