@@ -1,5 +1,5 @@
 {
-	"app_description": { "message": "An extension for Mastodon that toots what you're listening to" },
+	"app_description": { "message": "An extension of Google Chrome for Mastodon, which toots what you're listening to right now" },
 	"app_setting": { "message": "Setting" },
 
 	"setting_instance": { "message": "Your instance" },
