@@ -9,6 +9,7 @@
 	"setting_privacy_unlisted": { "message": "未収載" },
 	"setting_privacy_private": { "message": "非公開" },
 	"setting_privacy_limited": { "message": "限定公開(※一部のインスタンスのみ)" },
+	"setting_privacy_direct": { "message": "ダイレクト" },
 	"setting_save": { "message": "変更を保存" },
 	"setting_close": { "message": "変更を破棄" }
 }
