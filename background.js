@@ -41,6 +41,15 @@ const notifyListeningInfo = (tabId) => {
 					title,
 					message: url,
 					iconUrl: "icons/icon48.png"
+				}, currentId => {
+					chrome.notifications.onClicked.addListener(notificationId => {
+						if (notificationId === currentId) {
+							chrome.tabs.highlight({ windowId: tabInfo.windowId, tabs: tabInfo.index });
+							chrome.notifications.clear(currentId);
+						}
+
+						chrome.notifications.onClicked.removeListener(event);
+					});
 				});
 
 				tootListeningInfo(title, url);
