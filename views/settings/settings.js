@@ -21,9 +21,10 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 
 	enabledSwitch.addEventListener("change", event => {
-		chrome.storage.local.set({
-			enabled: event.target.checked
-		});
+		const enabled = event.target.checked;
+
+		chrome.storage.local.set({ enabled });
+		chrome.browserAction.setBadgeText({ text: enabled ? "ON" : "OFF" });
 	});
 
 	saveBtn.addEventListener("click", () => {
@@ -32,6 +33,8 @@ window.addEventListener("DOMContentLoaded", () => {
 			token: tokenInputter.value,
 			privacy: pricacySelector.value
 		});
+
+		window.close();
 	});
 
 	closeBtn.addEventListener("click", () => {
