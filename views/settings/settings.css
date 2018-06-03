@@ -5,3 +5,8 @@
 Main {
 	Padding: 1rem;
 }
+
+.logo-icon {
+	Height: 1em;
+	Vertical-Align: Middle;
+}
