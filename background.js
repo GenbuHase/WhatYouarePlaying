@@ -24,28 +24,37 @@ const notifyListeningInfo = (tabId) => {
 	chrome.storage.local.get(["enabled"], items => {
 		const { enabled } = items;
 
-		if (enabled) {
-			(function looper (tabId) {
-				chrome.tabs.get(tabId, tabInfo => {
-					const { status, title, url } = tabInfo;
+		if (!enabled) return;
 
-					if (status === "loading") {
-						setTimeout(looper(tabId), 200);
-						return;
-					}
+		(function looper (tabId) {
+			chrome.tabs.get(tabId, tabInfo => {
+				const { status, title, url } = tabInfo;
 
-					chrome.notifications.create(null, {
-						type: chrome.notifications.TemplateType.BASIC,
+				if (status === "loading") {
+					setTimeout(looper(tabId), 200);
+					return;
+				}
 
-						title,
-						message: url,
-						iconUrl: "icons/icon48.png"
+				chrome.notifications.create(null, {
+					type: chrome.notifications.TemplateType.BASIC,
+
+					title,
+					message: url,
+					iconUrl: "icons/icon48.png"
+				}, currentId => {
+					chrome.notifications.onClicked.addListener(notificationId => {
+						if (notificationId === currentId) {
+							chrome.tabs.highlight({ windowId: tabInfo.windowId, tabs: tabInfo.index });
+							chrome.notifications.clear(currentId);
+						}
+
+						chrome.notifications.onClicked.removeListener(event);
 					});
-
-					tootListeningInfo(title, url);
 				});
-			})(tabId);
-		}
+
+				tootListeningInfo(title, url);
+			});
+		})(tabId);
 	});
 };
 
@@ -58,33 +67,32 @@ const notifyListeningInfo = (tabId) => {
 const tootListeningInfo = (title, url) => {
 	chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
 		const { enabled, instance, token, privacy } = items;
-		
+
+		if (!enabled) return;
 		if (!instance) throw new TypeError("A config, 'instance' is invalid.");
 		if (!token) throw new TypeError("A config, 'token' is invalid.");
 		if (!privacy) throw new TypeError("A config, 'privacy' is invalid.");
 
-		if (enabled) {
-			return fetch(`${instance}/api/v1/statuses`, {
-				method: "POST",
-		
-				headers: {
-					"Content-Type": "application/json",
-					"Authorization": `Bearer ${token}`
-				},
-		
-				body: JSON.stringify({
-					status: [
-						"#WhatYouarePlaying",
-						"Now playing🎶",
-						"",
-						`【${title}】`,
-						url
-					].join("\n"),
-					
-					visibility: privacy
-				})
-			});
-		}
+		return fetch(`${instance}/api/v1/statuses`, {
+			method: "POST",
+	
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${token}`
+			},
+	
+			body: JSON.stringify({
+				status: [
+					"#WhatYouarePlaying",
+					"Now playing🎶",
+					"",
+					`【${title}】`,
+					url
+				].join("\n"),
+				
+				visibility: privacy
+			})
+		});
 	});
 };
 
@@ -160,3 +168,11 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 		]
 	}
 );
+
+chrome.storage.local.get(["enabled", "instance", "token"], items => {
+	let { enabled } = items;
+	const { instance, token } = items;
+
+	if (!instance || !token) enabled = false;
+	chrome.browserAction.setBadgeText({ text: enabled ? "ON" : "OFF" });
+});

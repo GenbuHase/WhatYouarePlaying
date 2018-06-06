@@ -18,7 +18,10 @@
 		<Header Class = "navbar-fixed">
 			<Nav>
 				<Div Class = "nav-wrapper">
-					<Span Class = "brand-logo center">What You're Playing</Span>
+					<Span Class = "brand-logo center">
+						<Img Class = "logo-icon" Src = "/icons/icon128.png" />
+						What You're Playing
+					</Span>
 
 					<UL Class = "right">
 						<Li Class = "switch">
@@ -52,6 +55,7 @@
 					<Option Name = "privacy.unlisted" Value = "unlisted" Locale-Message = "setting_privacy_unlisted">Unlisted</Option>
 					<Option Name = "privacy.private" Value = "private" Locale-Message = "setting_privacy_private">Private</Option>
 					<Option Name = "privacy.limited" Value = "limited" Locale-Message = "setting_privacy_limited">Limited(Only for implemented instances)</Option>
+					<Option Name = "privacy.direct" Value = "direct" Locale-Message = "setting_privacy_direct">Direct</Option>
 				</Select>
 
 				<Label Locale-Message = "setting_privacy">Privacy</Label>
@@ -65,7 +69,7 @@
 
 				<Button ID = "btns_close" Class = "btn red waves-effect waves-light">
 					<I Class = "material-icons left">close</I>
-					<Locale Message = "setting_close">Discard this change and close</Locale>
+					<Locale Message = "setting_close">Discard the changes</Locale>
 				</Button>
 			</Div>
 		</Main>

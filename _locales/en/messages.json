@@ -9,6 +9,7 @@
 	"setting_privacy_unlisted": { "message": "Unlisted" },
 	"setting_privacy_private": { "message": "Private" },
 	"setting_privacy_limited": { "message": "Limited(Only for implemented instances)" },
+	"setting_privacy_direct": { "message": "Direct" },
 	"setting_save": { "message": "Save the changes" },
-	"setting_close": { "message": "Discard this change and close" }
+	"setting_close": { "message": "Discard the changes" }
 }
