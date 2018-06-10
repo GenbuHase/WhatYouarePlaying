@@ -164,7 +164,8 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 
 	{
 		url: [
-			URLMatchers.YouTube
+			URLMatchers.YouTube,
+			URLMatchers.Niconico
 		]
 	}
 );
