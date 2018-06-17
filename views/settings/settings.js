@@ -5,6 +5,42 @@ const enabledSwitch = document.getElementById("enabled");
 const saveBtn = document.getElementById("btns_save");
 const closeBtn = document.getElementById("btns_close");
 
+
+
+/**
+ * Detects a type of provided instance's url
+ * 
+ * @param {String} instance
+ * @return {Promise<"MASTODON" | "MISSKEY" | "NONE">}
+ */
+const detectInstanceType = (instance) => {
+	//Misskey's API
+	return fetch(`${instance}/api/i`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" }
+	}).then(res => {
+		if (res.status === 400) return "MISSKEY";
+
+		//Mastodon's API
+		return fetch(`${instance}/api/v1/instance`).then(res => {
+			if (res.ok) return "MASTODON";
+
+			return "NONE";
+		});
+	}).catch(() => "NONE");
+};
+
+/**
+ * Throws an error with a notification
+ * @param {String} errorKey
+ */
+const throwError = errorKey => {
+	M.toast({ html: definedMessages[errorKey].message.replace(/\r?\n/g, "<Br />"), classes: "red darken-2" });
+	throw definedMessages[errorKey].message;
+};
+
+
+
 window.addEventListener("DOMContentLoaded", () => {
 	document.querySelectorAll("Select").forEach(select => M.FormSelect.init(select));
 });
@@ -28,13 +64,21 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 
 	saveBtn.addEventListener("click", () => {
-		chrome.storage.local.set({
-			instance: instanceInputter.value,
-			token: tokenInputter.value,
-			privacy: pricacySelector.value
-		});
+		const instance = instanceInputter.value;
 
-		window.close();
+		detectInstanceType(instance).then(type => {
+			if (type === "NONE") throwError("error_UnacceptableInstance");
+
+			chrome.storage.local.set({ type });
+		}).then(() => {
+			chrome.storage.local.set({
+				instance,
+				token: tokenInputter.value,
+				privacy: pricacySelector.value
+			});
+	
+			window.close();
+		});
 	});
 
 	closeBtn.addEventListener("click", () => {

@@ -1,5 +1,5 @@
 {
-	"app_description": { "message": "An extension of Google Chrome for Mastodon, which toots what you're listening to right now" },
+	"app_description": { "message": "An extension of Google Chrome for Mastodon and Misskey, which toots what you're listening to right now" },
 	"app_setting": { "message": "Setting" },
 
 	"setting_instance": { "message": "Your instance" },
@@ -11,5 +11,7 @@
 	"setting_privacy_limited": { "message": "Limited(Only for implemented instances)" },
 	"setting_privacy_direct": { "message": "Direct" },
 	"setting_save": { "message": "Save the changes" },
-	"setting_close": { "message": "Discard the changes" }
+	"setting_close": { "message": "Discard the changes" },
+
+	"error_UnacceptableInstance": { "message": "The provided instance is not acceptable." }
 }

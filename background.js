@@ -21,10 +21,15 @@ const URLMatchers = {
  * @param {Number} tabId
  */
 const notifyListeningInfo = (tabId) => {
-	chrome.storage.local.get(["enabled"], items => {
-		const { enabled } = items;
+	chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
+		const { enabled, instance, token, privacy } = items;
 
 		if (!enabled) return;
+		if (!instance) throw new TypeError("A config, 'instance' is invalid.");
+		if (!token) throw new TypeError("A config, 'token' is invalid.");
+		if (!privacy) throw new TypeError("A config, 'privacy' is invalid.");
+
+		
 
 		(function looper (tabId) {
 			chrome.tabs.get(tabId, tabInfo => {
@@ -65,36 +70,49 @@ const notifyListeningInfo = (tabId) => {
  * @returns {Promise | void}
  */
 const tootListeningInfo = (title, url) => {
-	chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
-		const { enabled, instance, token, privacy } = items;
+	chrome.storage.local.get(["type", "instance", "token", "privacy"], items => {
+		const { type, instance, token, privacy } = items;
 
-		if (!enabled) return;
-		if (!instance) throw new TypeError("A config, 'instance' is invalid.");
-		if (!token) throw new TypeError("A config, 'token' is invalid.");
-		if (!privacy) throw new TypeError("A config, 'privacy' is invalid.");
+		const status = [
+			"#WhatYouarePlaying",
+			"#NowPlaying",
+			"",
+			"Now playing🎶",
+			"",
+			`【${title}】`,
+			url
+		].join("\n");
 
-		return fetch(`${instance}/api/v1/statuses`, {
-			method: "POST",
-	
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${token}`
-			},
-	
-			body: JSON.stringify({
-				status: [
-					"#WhatYouarePlaying",
-					"#NowPlaying",
-					"",
-					"Now playing🎶",
-					"",
-					`【${title}】`,
-					url
-				].join("\n"),
-				
-				visibility: privacy
-			})
-		});
+		switch (type) {
+			case "NONE":
+				throw new URIError("The instance is not acceptable.");
+
+			case "MASTODON":
+				return fetch(`${instance}/api/v1/statuses`, {
+					method: "POST",
+			
+					headers: {
+						"Content-Type": "application/json",
+						"Authorization": `Bearer ${token}`
+					},
+			
+					body: JSON.stringify({
+						status,
+						visibility: privacy
+					})
+				});
+
+			case "MISSKEY":
+				return fetch(`${instance}/api/notes/create`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+
+					body: JSON.stringify({
+						i: token,
+						text: status
+					})
+				});
+		}
 	});
 };
 

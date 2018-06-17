@@ -1,5 +1,5 @@
 {
-	"app_description": { "message": "Mastodonに再生中の曲情報をトゥートします。" },
+	"app_description": { "message": "Mastodon, Misskeyに再生中の曲情報をトゥートします。" },
 	"app_setting": { "message": "設定" },
 
 	"setting_instance": { "message": "所属インスタンス" },
@@ -11,5 +11,7 @@
 	"setting_privacy_limited": { "message": "限定公開(※一部のインスタンスのみ)" },
 	"setting_privacy_direct": { "message": "ダイレクト" },
 	"setting_save": { "message": "変更を保存" },
-	"setting_close": { "message": "変更を破棄" }
+	"setting_close": { "message": "変更を破棄" },
+
+	"error_UnacceptableInstance": { "message": "指定されたインスタンスは非対応です。" }
 }
