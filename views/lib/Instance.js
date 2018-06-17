@@ -46,14 +46,20 @@ class Instance {
 	 * @param {String} url
 	 */
 	constructor (url) {
-		if (!url) throw new URIError("An argument, 'url' is required.");
-
-		//Throws error if provided url isn't absolutely one
-		new URL(url);
+		try {
+			if (url) new URL(url);
+		} catch (error) {
+			throw new URIError("An argument, 'url' must be absolutely formed.");
+		}
 
 		this.url = url;
-		Instance.detectType(url).then(type => this.type = type);
-		chrome.storage.local.get("token", items => Object.assign(this, items));
+		chrome.storage.local.get("token", items => this.token = items.token || "");
+		
+		if (!url) {
+			this.type = "None";
+		} else {
+			Instance.detectType(url).then(type => this.type = type);
+		}
 	}
 
 	/**

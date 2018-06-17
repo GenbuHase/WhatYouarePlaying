@@ -3,8 +3,8 @@
 	
 	"name": "What You're Playing",
 	"description": "__MSG_app_description__",
-	"version": "4.4",
-	"version_name": "v4.4",
+	"version": "4.5",
+	"version_name": "v4.5",
 	"default_locale": "en",
 
 	"icons": {

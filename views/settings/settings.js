@@ -21,7 +21,7 @@ const throwError = errorKey => {
  * @param {String} type
  */
 const changeVisibilities = type => {
-	if (Instance.Type[type]) {
+	if (type && type !== Instance.Type.None && Instance.Type[type]) {
 		while (visibilitySelector.options.length > 0) visibilitySelector.options.remove(0);
 
 		for (let name of Instance.Visibility[type]) {
@@ -78,6 +78,17 @@ window.addEventListener("DOMContentLoaded", () => {
 	});
 
 	saveBtn.addEventListener("click", () => {
+		if (!instanceInputter.value) {
+			chrome.storage.local.set({
+				type: "None",
+				instance: "",
+				token: tokenInputter.value,
+				visibility: ""
+			});
+
+			return;
+		}
+		
 		const instance = new Instance(instanceInputter.value);
 
 		instance.on("init", () => {

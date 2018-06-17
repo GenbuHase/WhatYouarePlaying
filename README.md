@@ -1,6 +1,6 @@
 # <Img Alt="" Src="/icons/icon128.png" Height="48" Align="Center"/> What You're Playing(Google Chrome Extension)
 
-An extension of Google Chrome for Mastodon that toots what you're listening to
+A Chrome-Extension which toots what you're listening to, for Mastodon and some services
 
 
 
@@ -18,11 +18,25 @@ This extension toots what you're listening to right now!
 * Deliver information of channels on TwitCasting
 
 
+## Implemented Services
+* Mastodon
+* Misskey
+
+
+## Installation
+1.	Download and unpack any versions from this repository.
+
+2.	From `chrome://extensions`, turn `Developer Mode` on.
+
+3.	Import this extension by selecting unpacked folder.<Br />
+	![chrome://extensions](images/001.png)
+
+
 ## How to Use
 Please edit configurate from option page.<Br />
 We recommend to generate new app to get a token, or get one from developer-tool.
 
-![Option Page](images/001.png)
+![Option Page](images/002.png)
 
 
 ## Others
