@@ -15,17 +15,16 @@ const closeBtn = document.getElementById("btns_close");
  */
 const detectInstanceType = (instance) => {
 	//Misskey's API
-	return fetch(`${instance}/api/i`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" }
+	return fetch(`${instance}/api/stats`, {
+		method: "POST"
 	}).then(res => {
-		if (res.status === 400) return "MISSKEY";
+		if (res.ok) return "MISSKEY";
 
 		//Mastodon's API
 		return fetch(`${instance}/api/v1/instance`).then(res => {
 			if (res.ok) return "MASTODON";
-
-			return "NONE";
+			
+			throw "";
 		});
 	}).catch(() => "NONE");
 };
