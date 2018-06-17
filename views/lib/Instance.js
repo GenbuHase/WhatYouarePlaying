@@ -48,11 +48,12 @@ class Instance {
 	constructor (url) {
 		if (!url) throw new URIError("An argument, 'url' is required.");
 
-		//Throws error if provided url isn't absolutely
+		//Throws error if provided url isn't absolutely one
 		new URL(url);
 
 		this.url = url;
 		Instance.detectType(url).then(type => this.type = type);
+		chrome.storage.local.get("token", items => Object.assign(this, items));
 	}
 
 	/**
@@ -68,7 +69,7 @@ class Instance {
 
 			case "init":
 				const detector = setInterval(() => {
-					if ([this.type].every(prop => prop)) {
+					if ([this.type, this.token].every(prop => prop !== undefined)) {
 						clearInterval(detector);
 						callback(this);
 					}
