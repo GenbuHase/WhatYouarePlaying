@@ -10,6 +10,7 @@
 		<Link Rel = "StyleSheet" Href = "../lib/Material Icons/material-icons.css" />
 
 		<Script Src = "../lib/Locale.js"></Script>
+		<Script Src = "../lib/Instance.js"></Script>
 		<Script Src = "settings.js" Defer></Script>
 		<Link Rel = "StyleSheet" Href = "settings.css" />
 	</Head>
@@ -50,15 +51,10 @@
 			</Div>
 
 			<Div Class = "input-field">
-				<Select ID = "privacy">
-					<Option Name = "privacy.public" Value = "public" Locale-Message = "setting_privacy_public">Public</Option>
-					<Option Name = "privacy.unlisted" Value = "unlisted" Locale-Message = "setting_privacy_unlisted">Unlisted</Option>
-					<Option Name = "privacy.private" Value = "private" Locale-Message = "setting_privacy_private">Private</Option>
-					<Option Name = "privacy.limited" Value = "limited" Locale-Message = "setting_privacy_limited">Limited(Only for implemented instances)</Option>
-					<Option Name = "privacy.direct" Value = "direct" Locale-Message = "setting_privacy_direct">Direct</Option>
+				<Select ID = "visibility">
 				</Select>
 
-				<Label Locale-Message = "setting_privacy">Privacy</Label>
+				<Label Locale-Message = "setting_visibility">Privacy</Label>
 			</Div>
 
 			<Div>

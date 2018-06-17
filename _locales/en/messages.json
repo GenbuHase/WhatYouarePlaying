@@ -4,12 +4,20 @@
 
 	"setting_instance": { "message": "Your instance" },
 	"setting_token": { "message": "Your token(Required permission to write)" },
-	"setting_privacy": { "message": "Privacy" },
-	"setting_privacy_public": { "message": "Public" },
-	"setting_privacy_unlisted": { "message": "Unlisted" },
-	"setting_privacy_private": { "message": "Private" },
-	"setting_privacy_limited": { "message": "Limited(Only for implemented instances)" },
-	"setting_privacy_direct": { "message": "Direct" },
+	"setting_visibility": { "message": "Privacy" },
+
+	"setting_visibility_Mastodon_public": { "message": "Public" },
+	"setting_visibility_Mastodon_unlisted": { "message": "Unlisted" },
+	"setting_visibility_Mastodon_private": { "message": "Private" },
+	"setting_visibility_Mastodon_limited": { "message": "Limited(Only for implemented instances)" },
+	"setting_visibility_Mastodon_direct": { "message": "Direct" },
+
+	"setting_visibility_Misskey_public": { "message": "Public" },
+	"setting_visibility_Misskey_home": { "message": "Home" },
+	"setting_visibility_Misskey_followers": { "message": "Followers" },
+	"setting_visibility_Misskey_specified": { "message": "Direct" },
+	"setting_visibility_Misskey_private": { "message": "Private" },
+
 	"setting_save": { "message": "Save the changes" },
 	"setting_close": { "message": "Discard the changes" },
 

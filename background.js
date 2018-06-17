@@ -21,13 +21,13 @@ const URLMatchers = {
  * @param {Number} tabId
  */
 const notifyListeningInfo = (tabId) => {
-	chrome.storage.local.get(["enabled", "instance", "token", "privacy"], items => {
-		const { enabled, instance, token, privacy } = items;
+	chrome.storage.local.get(["enabled", "instance", "token", "visibility"], items => {
+		const { enabled, instance, token, visibility } = items;
 
 		if (!enabled) return;
 		if (!instance) throw new TypeError("A config, 'instance' is invalid.");
 		if (!token) throw new TypeError("A config, 'token' is invalid.");
-		if (!privacy) throw new TypeError("A config, 'privacy' is invalid.");
+		if (!visibility) throw new TypeError("A config, 'visibility' is invalid.");
 
 		
 
@@ -70,8 +70,8 @@ const notifyListeningInfo = (tabId) => {
  * @returns {Promise | void}
  */
 const tootListeningInfo = (title, url) => {
-	chrome.storage.local.get(["type", "instance", "token", "privacy"], items => {
-		const { type, instance, token, privacy } = items;
+	chrome.storage.local.get(["type", "instance", "token", "visibility"], items => {
+		const { type, instance, token, visibility } = items;
 
 		const status = [
 			"#WhatYouarePlaying",
@@ -84,10 +84,10 @@ const tootListeningInfo = (title, url) => {
 		].join("\n");
 
 		switch (type) {
-			case "NONE":
+			case "None":
 				throw new URIError("The instance is not acceptable.");
 
-			case "MASTODON":
+			case "Mastodon":
 				return fetch(`${instance}/api/v1/statuses`, {
 					method: "POST",
 			
@@ -98,18 +98,20 @@ const tootListeningInfo = (title, url) => {
 			
 					body: JSON.stringify({
 						status,
-						visibility: privacy
+						visibility
 					})
 				});
 
-			case "MISSKEY":
+			case "Misskey":
 				return fetch(`${instance}/api/notes/create`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 
 					body: JSON.stringify({
 						i: token,
-						text: status
+
+						text: status,
+						visibility
 					})
 				});
 		}

@@ -1,6 +1,6 @@
 const instanceInputter = document.getElementById("instance");
 const tokenInputter = document.getElementById("token");
-const pricacySelector = document.getElementById("privacy");
+const visibilitySelector = document.getElementById("visibility");
 const enabledSwitch = document.getElementById("enabled");
 const saveBtn = document.getElementById("btns_save");
 const closeBtn = document.getElementById("btns_close");
@@ -16,78 +16,6 @@ const throwError = errorKey => {
 	throw definedMessages[errorKey].message;
 };
 
-class Instance {
-	static get Type () {
-		return {
-			None: "NONE",
-
-			Mastodon: "MASTODON",
-			Misskey: "MISSKEY"
-		};
-	}
-
-	/**
-	 * Detects a type of provided instance's url
-	 * 
-	 * @param {String} instance
-	 * @return {Promise<String>}
-	 */
-	static detectType (instance) {
-		//Misskey's API
-		return fetch(`${instance}/api/stats`, {
-			method: "POST"
-		}).then(res => {
-			if (res.ok) return Instance.Type.Misskey;
-
-			//Mastodon's API
-			return fetch(`${instance}/api/v1/instance`).then(res => {
-				if (res.ok) return Instance.Type.Mastodon;
-
-				throw "";
-			});
-		}).catch(() => Instance.Type.None);
-	}
-
-
-
-	/**
-	 * Setup for handling information of instances
-	 * @param {String} url
-	 */
-	constructor (url) {
-		if (!url) throw new URIError("An argument, 'url' is required.");
-
-		//Throws error if provided url isn't absolutely
-		new URL(url);
-
-		this.url = url;
-		Instance.detectType(url).then(type => this.type = type);
-	}
-
-	/**
-	 * Dispatches provided event when it has been true
-	 * 
-	 * @param {"init"} eventname
-	 * @param {Function} callback
-	 */
-	on (eventname, callback) {
-		switch (eventname) {
-			default:
-				throw new TypeError(`Provided event, "${eventname}" is not defined`);
-
-			case "init":
-				const detector = setInterval(() => {
-					if ([this.type].every(prop => prop)) {
-						clearInterval(detector);
-						callback(this);
-					}
-				});
-				
-				break;
-		}
-	}
-}
-
 
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -95,14 +23,27 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-	chrome.storage.local.get(["enabled", "type", "instance", "token", "privacy"], items => {
-		if (items.enabled) enabledSwitch.checked = items.enabled;
-		if (items.instance) instanceInputter.value = items.instance;
-		if (items.token) tokenInputter.value = items.token;
-		if (items.privacy) pricacySelector.namedItem(`privacy.${items.privacy}`).selected = true;
+	chrome.storage.local.get(["enabled", "type", "instance", "token", "visibility"], items => {
+		const { enabled, type, instance, token, visibility } = items;
+
+		if (enabled) enabledSwitch.checked = enabled;
+		if (instance) instanceInputter.value = instance;
+		if (token) tokenInputter.value = token;
+
+		if (type && type !== Instance.Type.None) {
+			for (let visibility of Instance.Visibility[type]) {
+				const option = new Option(definedMessages[`setting_visibility_${type}_${visibility}`].message, visibility);
+				option.setAttribute("Name", `visibility.${visibility}`);
+				option.setAttribute("Locale-Message", `setting_visibility_${type}_${visibility}`);
+
+				visibilitySelector.add(option);
+			}
+		}
+		
+		if (visibility && Instance.Visibility[type].includes(visibility)) visibilitySelector.namedItem(`visibility.${visibility}`).selected = true;
 		
 		M.updateTextFields();
-		M.FormSelect.init(pricacySelector);
+		M.FormSelect.init(visibilitySelector);
 	});
 
 	enabledSwitch.addEventListener("change", event => {
@@ -124,7 +65,7 @@ window.addEventListener("DOMContentLoaded", () => {
 				type,
 				instance: instance.url,
 				token: tokenInputter.value,
-				privacy: pricacySelector.value
+				visibility: visibilitySelector.value
 			});
 	
 			window.close();
