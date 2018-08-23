@@ -12,6 +12,11 @@ const URLMatchers = {
 	TwitCasting: {
 		hostEquals: "twitcasting.tv",
 		urlMatches: "https://twitcasting\.tv/[\\w\\-:]+(/?|/movie/\\d+)$"
+	},
+
+	Nana: {
+		hostEquals: "nana-music.com", pathPrefix: "/sounds",
+		urlMatches: "https?://nana-music\.com/sounds/.+"
 	}
 };
 
@@ -137,7 +142,8 @@ chrome.webNavigation.onDOMContentLoaded.addListener(
 		url: [
 			URLMatchers.YouTube,
 			URLMatchers.Niconico,
-			URLMatchers.TwitCasting
+			URLMatchers.TwitCasting,
+			URLMatchers.Nana
 		]
 	}
 );

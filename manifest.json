@@ -3,8 +3,8 @@
 	
 	"name": "What You're Playing",
 	"description": "__MSG_app_description__",
-	"version": "4.5",
-	"version_name": "v4.5",
+	"version": "4.6",
+	"version_name": "v4.6",
 	"default_locale": "en",
 
 	"icons": {
@@ -21,7 +21,8 @@
 
 		"https://*.youtube.com/watch?*",
 		"http://*.nicovideo.jp/watch/*",
-		"https://twitcasting.tv/*"
+		"https://twitcasting.tv/*",
+		"https://nana-music.com/*"
 	],
 
 	"background": {

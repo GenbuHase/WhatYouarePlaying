@@ -16,6 +16,7 @@ This extension toots what you're listening to right now!
 * Deliver information of videos on YouTube
 * Deliver information of videos on Niconico(Nicovideo)
 * Deliver information of channels on TwitCasting
+* Deliver information of songs on nana
 
 
 ## Implemented Services
