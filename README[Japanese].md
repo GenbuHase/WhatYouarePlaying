@@ -16,6 +16,7 @@ What You're Playingは、MastodonをはじめとしたSNSサービスに現在�
 * YouTube動画の共有
 * ニコ動動画の共有
 * ツイキャス・チャンネルの共有
+* nana音源の共有
 
 
 ## 対応済みサービス | Implemented Services
