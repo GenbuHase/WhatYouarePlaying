@@ -17,6 +17,10 @@ const URLMatchers = {
 	Nana: {
 		hostEquals: "nana-music.com", pathPrefix: "/sounds",
 		urlMatches: "https?://nana-music\.com/sounds/.+"
+	},
+
+	KnzkLive: {
+		urlMatches: "https?://[\\w.]+/(?:watch(\\d+)|live\\?(?:.|&)*id=(\\d+))"
 	}
 };
 
@@ -145,6 +149,36 @@ chrome.webNavigation.onDOMContentLoaded.addListener(
 			URLMatchers.TwitCasting,
 			URLMatchers.Nana
 		]
+	}
+);
+
+chrome.webNavigation.onDOMContentLoaded.addListener(
+	/**
+	 * @param {Object} details
+	 * @param {Number} details.tabId
+	 * @param {String} details.url
+	 * @param {Number} details.processId
+	 * @param {Number} details.frameId
+	 * @param {Number} details.timeStamp
+	 */
+	details => {
+		const url = new URL(details.url);
+		const parsedUrl = url.href.match(new RegExp(URLMatchers.KnzkLive.urlMatches));
+		const liveId = parsedUrl[1] || parsedUrl[2];
+		
+		fetch(`${url.origin}/api/client/watch?id=${liveId}`).then(resp => {
+			if (!resp.ok) return Promise.reject();
+	
+			return resp.json();
+		}).then(info => {
+			if (info.error) return Promise.reject();
+
+			notifyListeningInfo(details.tabId);
+		}).catch(() => {});
+	},
+
+	{
+		url: [ URLMatchers.KnzkLive ]
 	}
 );
 
