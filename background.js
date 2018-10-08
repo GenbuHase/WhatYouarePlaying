@@ -148,6 +148,44 @@ chrome.webNavigation.onDOMContentLoaded.addListener(
 	}
 );
 
+chrome.webNavigation.onDOMContentLoaded.addListener(
+	/**
+	 * @param {Object} details
+	 * @param {Number} details.tabId
+	 * @param {String} details.url
+	 * @param {Number} details.processId
+	 * @param {Number} details.frameId
+	 * @param {Number} details.timeStamp
+	 */
+	details => {
+		const url = new URL(details.url);
+		chrome.tabs.executeScript(details.tabId, { file: "./snippets/KnzkLiveDetector.js" });
+	}
+);
+
+const Detectors = ["KNZK_LIVE_DETECTOR"];
+chrome.runtime.onMessage.addListener(
+	/**
+	 * @param {Object} [message]
+	 * @param {String} message.type
+	 * @param {any} message.value
+	 * 
+	 * @param {Object} sender
+	 * @param {Object} [sender.tab]
+	 * @param {Number} [sender.frameId]
+	 * @param {String} [sender.id]
+	 * @param {String} [sender.url]
+	 * @param {String} [sender.tlsChannelId]
+	 * 
+	 * @param {Function} sendResponce
+	 */
+	(message = {}, sender) => {
+		if (Detectors.includes(message.type) && message.value) {
+			notifyListeningInfo(sender.tab.id);
+		}
+	}
+)
+
 const recentHistories = [];
 chrome.webNavigation.onHistoryStateUpdated.addListener(
 	/**
