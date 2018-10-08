@@ -20,7 +20,7 @@ const URLMatchers = {
 	},
 
 	KnzkLive: {
-		urlMatches: "https?://[\\w.]+/watch(\\d+)"
+		urlMatches: "https?://[\\w.]+/(?:watch(\\d+)|live\\?(?:.|&)*id=(\\d+))"
 	}
 };
 
@@ -163,7 +163,8 @@ chrome.webNavigation.onDOMContentLoaded.addListener(
 	 */
 	details => {
 		const url = new URL(details.url);
-		const liveId = url.href.match(new RegExp(URLMatchers.KnzkLive.urlMatches))[1];
+		const parsedUrl = url.href.match(new RegExp(URLMatchers.KnzkLive.urlMatches));
+		const liveId = parsedUrl[1] || parsedUrl[2];
 		
 		fetch(`${url.origin}/api/client/watch?id=${liveId}`).then(resp => {
 			if (!resp.ok) return Promise.reject();
