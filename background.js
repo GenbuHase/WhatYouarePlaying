@@ -17,6 +17,10 @@ const URLMatchers = {
 	Nana: {
 		hostEquals: "nana-music.com", pathPrefix: "/sounds",
 		urlMatches: "https?://nana-music\.com/sounds/.+"
+	},
+
+	KnzkLive: {
+		urlMatches: "https?://[\\w.]+/watch(\\d+)"
 	}
 };
 
@@ -159,32 +163,23 @@ chrome.webNavigation.onDOMContentLoaded.addListener(
 	 */
 	details => {
 		const url = new URL(details.url);
-		chrome.tabs.executeScript(details.tabId, { file: "./snippets/KnzkLiveDetector.js" });
+		const liveId = url.href.match(new RegExp(URLMatchers.KnzkLive.urlMatches))[1];
+		
+		fetch(`${url.origin}/api/client/watch?id=${liveId}`).then(resp => {
+			if (!resp.ok) return Promise.reject();
+	
+			return resp.json();
+		}).then(info => {
+			if (info.error) return Promise.reject();
+
+			notifyListeningInfo(details.tabId);
+		}).catch(() => {});
+	},
+
+	{
+		url: [ URLMatchers.KnzkLive ]
 	}
 );
-
-const Detectors = ["KNZK_LIVE_DETECTOR"];
-chrome.runtime.onMessage.addListener(
-	/**
-	 * @param {Object} [message]
-	 * @param {String} message.type
-	 * @param {any} message.value
-	 * 
-	 * @param {Object} sender
-	 * @param {Object} [sender.tab]
-	 * @param {Number} [sender.frameId]
-	 * @param {String} [sender.id]
-	 * @param {String} [sender.url]
-	 * @param {String} [sender.tlsChannelId]
-	 * 
-	 * @param {Function} sendResponce
-	 */
-	(message = {}, sender) => {
-		if (Detectors.includes(message.type) && message.value) {
-			notifyListeningInfo(sender.tab.id);
-		}
-	}
-)
 
 const recentHistories = [];
 chrome.webNavigation.onHistoryStateUpdated.addListener(

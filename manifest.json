@@ -22,8 +22,7 @@
 		"https://*.youtube.com/watch?*",
 		"http://*.nicovideo.jp/watch/*",
 		"https://twitcasting.tv/*",
-		"https://nana-music.com/*",
-		"<all_urls>"
+		"https://nana-music.com/*"
 	],
 
 	"background": {
