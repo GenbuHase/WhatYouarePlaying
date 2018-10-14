@@ -1,6 +1,6 @@
 # <Img Alt="" Src="/icons/icon128.png" Height="48" Align="Center"/> What You're Playing(Chrome拡張機能)
 
-MastodonをはじめとしたSNSサービスにNowPlayingを投稿できるChrome拡張機能
+MastodonをはじめとしたSNSに、なうぷれ投稿するChrome拡張機能
 
 
 
@@ -9,17 +9,18 @@ MastodonをはじめとしたSNSサービスにNowPlayingを投稿できるChrom
 
 
 ## 概要 | Overview
-What You're Playingは、MastodonをはじめとしたSNSサービスに現在再生中の動画情報を投稿します。
+現在再生中の動画情報を、各種SNSに投稿します。
 
 
-## 特徴 | Features
-* YouTube動画の共有
-* ニコ動動画の共有
-* ツイキャス・チャンネルの共有
-* nana音源の共有
+## 対応済みサービス | Delivered Services
+* YouTube(動画)
+* ニコニコ動画(動画, 生配信)
+* ツイキャス(チャンネル)
+* nana(音源)
+* KnzkLive(ライブ)
 
 
-## 対応済みサービス | Implemented Services
+## 配信先サービス | Services for Delivering to
 * Mastodon
 * Misskey
 

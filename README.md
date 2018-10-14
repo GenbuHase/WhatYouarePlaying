@@ -1,6 +1,6 @@
 # <Img Alt="" Src="/icons/icon128.png" Height="48" Align="Center"/> What You're Playing(Google Chrome Extension)
 
-A Chrome-Extension which toots what you're listening to, for Mastodon and some services
+A Chrome-Extension which delivers what you're listening to, to Mastodon and some services
 
 
 
@@ -9,17 +9,18 @@ A Chrome-Extension which toots what you're listening to, for Mastodon and some s
 
 
 ## Overview
-This extension toots what you're listening to right now!
+This extension delivers what you're listening to right now!
 
 
-## Features
-* Deliver information of videos on YouTube
-* Deliver information of videos on Niconico(Nicovideo)
-* Deliver information of channels on TwitCasting
-* Deliver information of songs on nana
+## Delivered Services
+* YouTube(Videos)
+* Niconico(Videos, Lives)
+* TwitCasting(Channels)
+* nana(Songs)
+* KnzkLive(Lives)
 
 
-## Implemented Services
+## Services for Delivering to
 * Mastodon
 * Misskey
 
