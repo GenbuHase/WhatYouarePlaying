@@ -19,10 +19,10 @@
 		"storage",
 		"webNavigation",
 
-		"https://*.youtube.com/watch?*",
-		"http://*.nicovideo.jp/watch/*",
-		"https://twitcasting.tv/*",
-		"https://nana-music.com/*"
+		"*://*.youtube.com/watch?*",
+		"*://*.nicovideo.jp/watch/*",
+		"*://twitcasting.tv/*",
+		"*://nana-music.com/*"
 	],
 
 	"background": {
