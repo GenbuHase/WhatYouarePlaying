@@ -1,22 +1,22 @@
 const URLMatchers = {
 	YouTube: {
 		hostSuffix: "youtube.com", pathPrefix: "/watch",
-		urlMatches: "https://\\w+\.youtube\.com/watch\\?(?:.|&)*v=.+"
+		urlMatches: "https?://\\w+\\.youtube\\.com/watch\\?(?:.|&)*v=.+"
 	},
 
 	Niconico: {
 		hostSuffix: "nicovideo.jp", pathPrefix: "/watch",
-		urlMatches: "http://\\w+\.nicovideo\.jp/watch/.+"
+		urlMatches: "https?://\\w+\\.nicovideo\\.jp/watch/.+"
 	},
 
 	TwitCasting: {
 		hostEquals: "twitcasting.tv",
-		urlMatches: "https://twitcasting\.tv/[\\w\\-:]+(/?|/movie/\\d+)$"
+		urlMatches: "https?://twitcasting\\.tv/[\\w\\-:]+(/?|/movie/\\d+)$"
 	},
 
 	Nana: {
 		hostEquals: "nana-music.com", pathPrefix: "/sounds",
-		urlMatches: "https?://nana-music\.com/sounds/.+"
+		urlMatches: "https?://nana-music\\.com/sounds/.+"
 	},
 
 	KnzkLive: {
