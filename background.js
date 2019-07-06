@@ -84,9 +84,7 @@ const tootListeningInfo = (title, url) => {
 
 		const status = [
 			"#WhatYouarePlaying",
-			"#NowPlaying",
-			"",
-			"Now playing🎶",
+			"#NowPlaying 🎶",
 			"",
 			`【${title}】`,
 			url
