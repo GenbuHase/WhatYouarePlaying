@@ -9,7 +9,7 @@
 	"setting_visibility_Mastodon_public": { "message": "Public" },
 	"setting_visibility_Mastodon_unlisted": { "message": "Unlisted" },
 	"setting_visibility_Mastodon_private": { "message": "Private" },
-	"setting_visibility_Mastodon_limited": { "message": "Limited(Only for implemented instances)" },
+	"setting_visibility_Mastodon_unleakable": { "message": "Unleakable(Only for implemented instances)" },
 	"setting_visibility_Mastodon_direct": { "message": "Direct" },
 
 	"setting_visibility_Misskey_public": { "message": "Public" },
