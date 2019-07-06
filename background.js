@@ -129,6 +129,17 @@ const tootListeningInfo = (title, url) => {
 
 
 
+chrome.storage.local.get(["enabled", "instance", "token"], items => {
+	let { enabled } = items;
+	const { instance, token } = items;
+
+	if (!instance || !token) enabled = false;
+	chrome.browserAction.setBadgeText({ text: enabled ? "ON" : "OFF" });
+});
+
+
+
+// 新規タブで開いた場合
 chrome.webNavigation.onDOMContentLoaded.addListener(
 	/**
 	 * @param {Object} details
@@ -182,6 +193,9 @@ chrome.webNavigation.onDOMContentLoaded.addListener(
 	}
 );
 
+
+
+// ページ内遷移で開いた場合
 const recentHistories = [];
 chrome.webNavigation.onHistoryStateUpdated.addListener(
 	/**
@@ -197,8 +211,9 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 	details => {
 		recentHistories.push(details);
 
+		// YouTube対策(初回遷移時に履歴が3つ生成されるため)
 		if (recentHistories.length === 3) {
-			setTimeout(() => notifyListeningInfo(details.tabId), 1000);
+			setTimeout(() => notifyListeningInfo(details.tabId), 2500);
 			recentHistories.splice(0, 3);
 
 			return;
@@ -209,15 +224,16 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 			let milliseconds = 0;
 
 			let detector = setInterval(() => {
-				milliseconds++;
+				milliseconds += 100;
 
-				if (milliseconds >= 2000) {
+				// 一定時間内に履歴が追加された場合
+				if (currentLength !== recentHistories.length) clearInterval(detector);
+
+				if (milliseconds >= 2500) {
 					clearInterval(detector);
 					resolve();
 				}
-
-				if (currentLength !== recentHistories.length) clearInterval(detector);
-			}, 1);
+			}, 100);
 		}).then(() => {
 			notifyListeningInfo(details.tabId);
 			recentHistories.splice(0, 3);
@@ -231,11 +247,3 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 		]
 	}
 );
-
-chrome.storage.local.get(["enabled", "instance", "token"], items => {
-	let { enabled } = items;
-	const { instance, token } = items;
-
-	if (!instance || !token) enabled = false;
-	chrome.browserAction.setBadgeText({ text: enabled ? "ON" : "OFF" });
-});
