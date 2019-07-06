@@ -211,7 +211,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(
 			let detector = setInterval(() => {
 				milliseconds++;
 
-				if (milliseconds >= 1000) {
+				if (milliseconds >= 2000) {
 					clearInterval(detector);
 					resolve();
 				}

@@ -12,7 +12,7 @@ class Instance {
 		return {
 			None: [""],
 
-			Mastodon: ["public", "unlisted", "private", "limited", "direct"],
+			Mastodon: ["public", "unlisted", "private", "unleakable", "direct"],
 			Misskey: ["public", "home", "followers", "specified", "private"]
 		};
 	}
@@ -62,26 +62,34 @@ class Instance {
 		}
 	}
 
+	get hasInitialized () { return [this.type, this.token].every(prop => prop !== undefined) }
+
 	/**
 	 * Dispatches provided event when it has been true
 	 * 
 	 * @param {"init"} eventname
-	 * @param {Function} callback
+	 * @param {Function} [callback]
+	 * 
+	 * @return {Promise<Instance>}
 	 */
 	on (eventname, callback) {
+		let detector = null;
+
 		switch (eventname) {
 			default:
 				throw new TypeError(`Provided event, "${eventname}" is not defined`);
 
 			case "init":
-				const detector = setInterval(() => {
-					if ([this.type, this.token].every(prop => prop !== undefined)) {
-						clearInterval(detector);
-						callback(this);
-					}
+				return new Promise(resolve => {
+					detector = setInterval(() => {
+						if (this.hasInitialized) {
+							clearInterval(detector);
+
+							resolve(this);
+							if (callback) callback(this);
+						}
+					});
 				});
-				
-				break;
 		}
 	}
 }

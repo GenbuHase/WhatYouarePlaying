@@ -1,3 +1,7 @@
+/* global M */
+/* global definedMessages, localeManager */
+/* global Instance */
+
 const enabledSwitch = document.getElementById("enabled");
 const instanceInputter = document.getElementById("instance");
 const tokenInputter = document.getElementById("token");
@@ -8,12 +12,12 @@ const closeBtn = document.getElementById("btns_close");
 
 
 /**
- * Throws an error with a notification
- * @param {String} errorKey
+ * Evokes a provided error with a notification
+ * @param {String} errorId
  */
-const throwError = errorKey => {
-	M.toast({ html: definedMessages[errorKey].message.replace(/\r?\n/g, "<Br />"), classes: "red darken-2" });
-	throw definedMessages[errorKey].message;
+const evokeError = errorId => {
+	M.toast({ html: definedMessages[errorId].message.replace(/\r?\n/g, "<Br />"), classes: "red darken-2" });
+	return new Error(definedMessages[errorId].message);
 };
 
 /**
@@ -21,9 +25,9 @@ const throwError = errorKey => {
  * @param {String} type
  */
 const changeVisibilities = type => {
-	if (type && type !== Instance.Type.None && Instance.Type[type]) {
-		while (visibilitySelector.options.length > 0) visibilitySelector.options.remove(0);
+	while (visibilitySelector.options.length > 0) visibilitySelector.options.remove(0);
 
+	if (type && type !== Instance.Type.None && Instance.Type[type]) {
 		for (let name of Instance.Visibility[type]) {
 			const option = new Option(definedMessages[`setting_visibility_${type}_${name}`].message, name);
 			option.setAttribute("Name", `visibility.${name}`);
@@ -44,17 +48,19 @@ const changeVisibilities = type => {
 
 
 window.addEventListener("DOMContentLoaded", () => {
-	document.querySelectorAll("Select").forEach(select => M.FormSelect.init(select));
+	localeManager.on("init").then(() => {
+		document.querySelectorAll("Select").forEach(select => M.FormSelect.init(select));
 
-	chrome.storage.local.get(["enabled", "type", "instance", "token"], items => {
-		const { enabled, type, instance, token } = items;
+		chrome.storage.local.get(["enabled", "type", "instance", "token"], items => {
+			const { enabled, type, instance, token } = items;
 
-		if (enabled) enabledSwitch.checked = enabled;
-		if (instance) instanceInputter.value = instance;
-		if (token) tokenInputter.value = token;
+			if (enabled) enabledSwitch.checked = enabled;
+			if (instance) instanceInputter.value = instance;
+			if (token) tokenInputter.value = token;
 
-		changeVisibilities(type);
-		M.updateTextFields();
+			changeVisibilities(type);
+			M.updateTextFields();
+		});
 	});
 });
 
@@ -69,7 +75,7 @@ window.addEventListener("DOMContentLoaded", () => {
 	instanceInputter.addEventListener("blur", function () {
 		const instance = new Instance(this.value);
 
-		instance.on("init", () => {
+		instance.on("init").then(() => {
 			const { type } = instance;
 
 			changeVisibilities(type);
@@ -82,19 +88,19 @@ window.addEventListener("DOMContentLoaded", () => {
 			chrome.storage.local.set({
 				type: "None",
 				instance: "",
-				token: tokenInputter.value,
+				token: "",
 				visibility: ""
 			});
 
-			return;
+			return window.close();
 		}
 		
 		const instance = new Instance(instanceInputter.value);
 
-		instance.on("init", () => {
+		instance.on("init").then(() => {
 			const { type } = instance;
 
-			if (type === "NONE") throwError("error_UnacceptableInstance");
+			if (type === "None") throw evokeError("error_UnacceptableInstance");
 			
 			chrome.storage.local.set({
 				type,
