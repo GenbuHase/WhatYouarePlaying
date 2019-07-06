@@ -26,6 +26,7 @@ const evokeError = errorId => {
  */
 const changeVisibilities = type => {
 	while (visibilitySelector.options.length > 0) visibilitySelector.options.remove(0);
+	changeFieldsEnability([visibilitySelector], false);
 
 	if (type && type !== Instance.Type.None && Instance.Type[type]) {
 		for (let name of Instance.Visibility[type]) {
@@ -36,12 +37,37 @@ const changeVisibilities = type => {
 			visibilitySelector.add(option);
 		}
 
-		chrome.storage.local.get("visibility", items => {
-			const { visibility } = items;
+		chrome.storage.local.get(["enabled", "visibility"], items => {
+			const { enabled, visibility } = items;
 			
 			if (visibility && Instance.Visibility[type].includes(visibility)) visibilitySelector.namedItem(`visibility.${visibility}`).selected = true;
-			M.FormSelect.init(visibilitySelector);
+			changeFieldsEnability([visibilitySelector], enabled);
 		});
+	}
+};
+
+/**
+ * Enables/Disables selected fields
+ * 
+ * @param {Array<HTMLElement>} fields
+ * @param {Boolean} enability
+ */
+const changeFieldsEnability = (fields, enability) => {
+	for (const field of fields) {
+		switch (field) {
+			default:
+				break;
+
+			case instanceInputter:
+			case tokenInputter:
+				field[enability ? "removeAttribute" : "setAttribute"]("disabled", "");
+				break;
+
+			case visibilitySelector:
+				field[enability ? "removeAttribute" : "setAttribute"]("disabled", ""),
+				M.FormSelect.init(field);
+				break;
+		}
 	}
 };
 
@@ -58,6 +84,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			if (instance) instanceInputter.value = instance;
 			if (token) tokenInputter.value = token;
 
+			changeFieldsEnability([instanceInputter, tokenInputter], enabled);
 			changeVisibilities(type);
 			M.updateTextFields();
 		});
@@ -70,23 +97,25 @@ window.addEventListener("DOMContentLoaded", () => {
 
 		chrome.storage.local.set({ enabled });
 		chrome.browserAction.setBadgeText({ text: enabled ? "ON" : "OFF" });
+		changeFieldsEnability([instanceInputter, tokenInputter, visibilitySelector], enabled);
 	});
 
 	instanceInputter.addEventListener("blur", function () {
-		const instance = new Instance(this.value);
+		changeFieldsEnability([tokenInputter, visibilitySelector], false);
 
+		const instance = new Instance(this.value);
 		instance.on("init").then(() => {
 			const { type } = instance;
 
-			changeVisibilities(type);
-			M.FormSelect.init(visibilitySelector);
+			if (type !== Instance.Type.None) changeFieldsEnability([tokenInputter], true);
+			changeVisibilities(instance.type);
 		});
 	});
 
 	saveBtn.addEventListener("click", () => {
 		if (!instanceInputter.value) {
 			chrome.storage.local.set({
-				type: "None",
+				type: Instance.Type.None,
 				instance: "",
 				token: "",
 				visibility: ""
@@ -96,7 +125,6 @@ window.addEventListener("DOMContentLoaded", () => {
 		}
 		
 		const instance = new Instance(instanceInputter.value);
-
 		instance.on("init").then(() => {
 			const { type } = instance;
 
