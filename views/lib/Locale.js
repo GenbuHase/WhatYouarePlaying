@@ -1,5 +1,5 @@
 class LocaleManager {
-	static get CURRENT_LANG () { return browser.i18n.getUILanguage() }
+	static get CURRENT_LANG () { return chrome.app ? chrome.app.getDetails().current_locale : browser.i18n.getUILanguage() }
 
 
 
