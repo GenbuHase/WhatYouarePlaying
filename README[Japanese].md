@@ -1,6 +1,6 @@
-# <Img Alt="" Src="/icons/icon128.png" Height="48" Align="Center"/> What You're Playing(Chrome拡張機能)
+# <img alt = "" src = "/icons/icon128.png" height = "48" align = "center" /> What You're Playing for Firefox
 
-MastodonをはじめとしたSNSに、なうぷれ投稿するChrome拡張機能
+Mastodonをはじめとしたサービスになうぷれ投稿するFirefox拡張機能
 
 
 
@@ -9,47 +9,47 @@ MastodonをはじめとしたSNSに、なうぷれ投稿するChrome拡張機能
 
 
 ## 概要 | Overview
-現在再生中の動画情報を、各種SNSに投稿します。
+現在再生中のものに関する情報を、Mastodonなどの各種SNSに投稿します。
 
 
-## 対応済みサービス | Delivered Services
-* YouTube(動画)
-* ニコニコ動画(動画, 生配信)
-* ツイキャス(チャンネル)
-* nana(音源)
-* KnzkLive(ライブ)
-
-
-## 配信先サービス | Services for Delivering to
-* Mastodon
-* Misskey
+## 対応サービス | Available Services
+* 取得元
+  * YouTube(動画)
+  * ニコニコ動画(動画, 生配信)
+  * ツイキャス(チャンネル)
+  * nana(音源)
+  * KnzkLive(ライブ)
+* 配信先
+  * 任意のMastodonインスタンス
+  * 任意のMisskeyインスタンス
 
 
 ## インストール方法 | Installation
 1.	このレポジトリからWhat You're Playingをダウンロードし、解凍します。
 
-2.	`chrome://extensions`にある`デベロッパーモード`を有効にします。
+2.	`about:debugging#/runtime/this-firefox`に移動します。<br>
+	![about:debugging#/runtime/this-firefox](images/firefox-001.png)
 
-3.	`パッケージされていない拡張機能を読み込む`より、解凍されたフォルダを参照しインストールします。
-	![chrome://extensions](images/001.png)
+3.	`一時的なアドオンを読み込む…`より、ダウンロードしたzipや解凍されたフォルダ内のファイルを参照し、インストールします。
 
-
-## 使用方法 | How to Use
-最初に、設定画面からトークンの設定を行ってください。<Br />
-トークンはWhat You're Playing用に新しくアプリを生成するか、もしくはデベロッパーツールからの取得を推奨しています。
-
-![設定画面](images/001.png)
+4.	ブラウザを再起動するとアドオンが削除されます。<br>
+	お手数おかけいたしますが、その都度改めてインストールし設定してください。
 
 
-## その他 | Others
-もし不具合やバグがありましたら、ご気軽にご報告いただけたら嬉しいです。<Br />
-わたしが可能な限り、早めに修正するつもりです。
+## ご利用の前に | How to Use
+はじめに、設定画面からトークンの設定を行ってください。<Br />
+トークンはWhat You're Playing用に新しくアプリを生成して取得するか、もしくはデベロッパーツールからの取得を推奨しています。
+
+![設定画面](images/firefox-002.png)
 
 
-## つくったひとー！ | Author
-* [ProgrammerGenboo(itabashi.0j0.jp)](https://itabashi.0j0.jp/@ProgrammerGenboo)
-* [ProgrammerGenboo(knzk.me)](https://knzk.me/@ProgrammerGenboo)
+## つくったひと | Contact
+* Fediverse
+  * [いたばしのげんちゃん。(ProgrammerGenboo@itabashi.0j0.jp)](https://itabashi.0j0.jp/@ProgrammerGenboo)
+* Twitter
+  * [どっかのげんちゃん。(@GenInAnywhere)](https://twitter.com/GenInAnywhere)
+  * [どっかの麺つゆ。＋(@SomeoneMentsuyu)](https://twitter.com/SomeoneMentsuyu)
 
 
-## ライセンス | LICENSE
+## ライセンス | License
 [MIT LICENSE](/LICENSE)

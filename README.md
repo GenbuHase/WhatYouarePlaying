@@ -1,6 +1,6 @@
-# <Img Alt="" Src="/icons/icon128.png" Height="48" Align="Center"/> What You're Playing(Google Chrome Extension)
+# <img alt = "" src = "/icons/icon128.png" height = "48" align = "center" /> What You're Playing for Firefox
 
-A Chrome-Extension which delivers what you're listening to, to Mastodon and some services
+A Firefox add-on delivering what you're watching and listening to, to Mastodon and other services
 
 
 
@@ -9,47 +9,47 @@ A Chrome-Extension which delivers what you're listening to, to Mastodon and some
 
 
 ## Overview
-This extension delivers what you're listening to right now!
+This add-on will deliver information about what you're watching and listening to.
 
 
-## Delivered Services
-* YouTube(Videos)
-* Niconico(Videos, Lives)
-* TwitCasting(Channels)
-* nana(Songs)
-* KnzkLive(Lives)
-
-
-## Services for Delivering to
-* Mastodon
-* Misskey
+## Available Services
+* As A Source
+  * YouTube(Videos)
+  * Niconico(Videos, Lives)
+  * TwitCasting(Channels)
+  * nana(Songs)
+  * KnzkLive(Lives)
+* As A Destination
+  * Any Mastodon instances
+  * Any Misskey instances
 
 
 ## Installation
 1.	Download and unpack any versions from this repository.
 
-2.	From `chrome://extensions`, turn `Developer Mode` on.
+2.	Move to `about:debugging#/runtime/this-firefox`.<br>
+	![about:debugging#/runtime/this-firefox](images/firefox-001.png)
 
-3.	Import this extension by selecting unpacked folder.<Br />
-	![chrome://extensions](images/001.png)
+3.	Import this extension by a downloaded zip, or any files in the unpacked folder.
+
+4.	This add-on will be automatically removed when the browser is closed.<br>
+	Please reinstall this add-on and configure when you open the browser again.
 
 
 ## How to Use
-Please edit configurate from option page.<Br />
-We recommend to generate new app to get a token, or get one from developer-tool.
+Please edit the configuration from the options page.<br>
+We recommend generating a new app to get a token, or getting one from developer-tool.
 
-![Option Page](images/002.png)
-
-
-## Others
-There might be any bugs, so feel free to report :D<Br />
-I'll fix them as soon as possible!
+![Options Page](images/firefox-002.png)
 
 
-## Author
-* [ProgrammerGenboo(itabashi.0j0.jp)](https://itabashi.0j0.jp/@ProgrammerGenboo)
-* [ProgrammerGenboo(knzk.me)](https://knzk.me/@ProgrammerGenboo)
+## Contact
+* Fediverse
+  * [いたばしのげんちゃん。(ProgrammerGenboo@itabashi.0j0.jp)](https://itabashi.0j0.jp/@ProgrammerGenboo)
+* Twitter
+  * [どっかのげんちゃん。(@GenInAnywhere)](https://twitter.com/GenInAnywhere)
+  * [どっかの麺つゆ。＋(@SomeoneMentsuyu)](https://twitter.com/SomeoneMentsuyu)
 
 
-## LICENSE
+## License
 [MIT LICENSE](/LICENSE)
