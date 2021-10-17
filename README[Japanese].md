@@ -1,6 +1,6 @@
-# <img alt = "" src = "/icons/icon128.png" height = "48" align = "center" /> What You're Playing for Firefox
+# <img alt = "" src = "/icons/icon128.png" height = "48" align = "center" /> What You're Playing
 
-Mastodonをはじめとしたサービスになうぷれ投稿するFirefox拡張機能
+Mastodonをはじめとしたサービスになうぷれ投稿するChrome/Firefox拡張機能
 
 
 
@@ -25,14 +25,23 @@ Mastodonをはじめとしたサービスになうぷれ投稿するFirefox拡�
 
 
 ## インストール方法 | Installation
-1.	このレポジトリからWhat You're Playingをダウンロードし、解凍します。
+* Google Chrome
+  1. このレポジトリからWhat You're Playingをダウンロードし、解凍します。
 
-2.	`about:debugging#/runtime/this-firefox`に移動します。<br>
-	![about:debugging#/runtime/this-firefox](images/firefox-001.png)
+  2. `chrome://extensions`にある`デベロッパーモード`を有効にします。
 
-3.	`一時的なアドオンを読み込む…`より、ダウンロードしたzipや解凍されたフォルダ内のファイルを参照し、インストールします。
+  3. `パッケージされていない拡張機能を読み込む`より、解凍されたフォルダを参照しインストールします。
+     ![chrome://extensions](images/chrome-001.png)
 
-4.	ブラウザを再起動するとアドオンが削除されます。<br>
+* Mozilla Firefox
+  1. このレポジトリからWhat You're Playingをダウンロードし、解凍します。
+
+  2. `about:debugging#/runtime/this-firefox`に移動します。<br>
+     ![about:debugging#/runtime/this-firefox](images/firefox-001.png)
+
+  3. `一時的なアドオンを読み込む…`より、ダウンロードしたzipや解凍されたフォルダ内のファイルを参照し、インストールします。
+
+  4. ブラウザを再起動するとアドオンが削除されます。<br>
 	お手数おかけいたしますが、その都度改めてインストールし設定してください。
 
 
@@ -40,7 +49,9 @@ Mastodonをはじめとしたサービスになうぷれ投稿するFirefox拡�
 はじめに、設定画面からトークンの設定を行ってください。<Br />
 トークンはWhat You're Playing用に新しくアプリを生成して取得するか、もしくはデベロッパーツールからの取得を推奨しています。
 
-![設定画面](images/firefox-002.png)
+![Chromeでの設定画面](images/chrome-002.png)
+
+![Firefoxでの設定画面](images/firefox-002.png)
 
 
 ## つくったひと | Contact
