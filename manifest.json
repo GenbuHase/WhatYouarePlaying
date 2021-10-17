@@ -4,7 +4,6 @@
 	"name": "What You're Playing",
 	"description": "__MSG_app_description__",
 	"version": "4.8",
-	"version_name": "v4.8",
 	"default_locale": "en",
 
 	"icons": {
